@@ -42,31 +42,68 @@ void printdev(libusb_device *dev) {
 int main() {
 	printf("Testing libusb synchronous bulk transfer...\n");
 
-	libusb_device **devs; 			// pointer to pointer of device, used to retrieve a list of devices
-	libusb_context *ctx = NULL; // a libusb session
-	int r; 											// for return values
-	ssize_t cnt; 								// holding number of devices in list
-	r = libusb_init(&ctx); 			// initialize a library session
+	libusb_device **devs; 						// pointer to pointer of device, used to retrieve a list of devices
+	libusb_device_handle *dev_handle; // a device handle
+	libusb_context *ctx = NULL; 			// a libusb session
+	int r;														// return value
 
+	// initialize a library session
+	r = libusb_init(&ctx); 
 	if (r < 0) {
 		printf("Init Error\n");
 		return 1;
 	}
+	libusb_set_debug(ctx, 3);	//set verbosity level to 3, as suggested in the documentation
 
-	libusb_set_debug(ctx, 3); 								//set verbosity level to 3, as suggested in the documentation
-	cnt = libusb_get_device_list(ctx, &devs); //get the list of devices
-
+	//get the list of devices
+	ssize_t cnt = libusb_get_device_list(ctx, &devs); 
 	if(cnt < 0) {
-		printf("Get Device Error\n"); //there was an error
+		printf("!!! Get Device Error !!!\n"); //there was an error
+		return 1;
 	}
-	printf(" (%d) devices in list:\n", cnt); 	//print total number of usb devices
-	ssize_t i;
- 	for(i = 0; i < cnt; i++) {
-		//printf("  device %d%c", i, i % 8 == 7 ? '\n' : '\t');
-		printdev(devs[i]);
-	}
+	printf(" (%d) devices in list\n", cnt); 	//print total number of usb devices
+ 	/*for(ssize_t i = 0; i < cnt; i++) printdev(devs[i]);*/
 
+	// open specific device
+	dev_handle = libusb_open_device_with_vid_pid(ctx, 0x8644, 0x8003);
+	if(dev_handle == NULL)
+		printf("Cannot open device\n");
+	else
+		printf("Device Opened\n");
 	libusb_free_device_list(devs, 1); //free the list, unref the devices in it
+
+	char data[] = {'a', 'b', 'c', 'd'}; // data to write
+	int actual; //used to find out how many bytes were written
+
+	if(libusb_kernel_driver_active(dev_handle, 0) == 1) { //find out if kernel driver is attached
+		printf("Kernel Driver Active\n");
+		if(libusb_detach_kernel_driver(dev_handle, 0) == 0) { //detach it
+			printf("Kernel Driver Detached!\n");
+		}
+	}
+	r = libusb_claim_interface(dev_handle, 0); //claim interface 0 (the first) of device (mine had jsut 1)
+	if(r < 0) {
+		printf("Cannot Claim Interface\n");
+		return 1;
+	}
+	printf("Claimed Interface\n");
+
+	printf("Writing Data...\n");
+	// device's out endpoint was 2, found with trial (using outputs from printdev)
+	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
+	if(r == 0 && actual == 4) //we wrote the 4 bytes successfully
+		printf("Writing Successful!\n");
+	else
+		printf("Write Error\n");
+
+	r = libusb_release_interface(dev_handle, 0); //release the claimed interface
+	if(r!=0) {
+		printf("Cannot Release Interface\n");
+		return 1;
+	}
+	printf("Released Interface\n");
+
+	libusb_close(dev_handle); //close the device we opened
 	libusb_exit(ctx); 								//close the session
 
 	return 0;
