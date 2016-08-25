@@ -97,7 +97,7 @@ int main() {
 	else {
 		printf("<!! Write Error !!>\n");
 	}
-	printf("%d\n", actual);
+	printf("Bytes transferred = %d\n", actual);
 
 	r = libusb_release_interface(dev_handle, 0); //release the claimed interface
 	if(r!=0) {
