@@ -12,4 +12,12 @@ https://github.com/forensix/libusbip
 
 NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
 
+-----------------------------------------------------------------------------------------------------------
+
+http://usbip.sourceforge.net/
+
+http://askubuntu.com/questions/612355/share-usb-drive-over-network
+
+https://www.howtoforge.com/how-to-set-up-a-usb-over-ip-server-and-client-with-ubuntu-10.04
+
 (c) Sam & Shyan - Developed in Agile style
