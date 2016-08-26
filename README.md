@@ -9,6 +9,10 @@ https://wiki.openwrt.org/doc/howto/usb.iptunnel (DON'T FORGET THE SUDO's!!!)
 NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
 usbip is required; can be found in the package manager
 
+## Todo
+1. Fix detach (only reqires port)
+2. Make fake usb
+
 ## Usage
 
 ```
