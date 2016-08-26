@@ -11,6 +11,27 @@ https://github.com/forensix/libusbip
 :(( https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=35341
 
 NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
+usbip is required; can be found in the package manager
+
+-----------------------------------------------------------------------------------------------------------
+## Usage
+
+```
+Usage: ./usbip.sh [options]
+
+Options:
+
+  Server:
+    -s, --server                            Lists usb devices on the server
+    -s, --server device_id                  Binds usb device
+    --netstat                               Displays Netstat info
+    --u, --unbind                           Unbinds usb device
+  
+  Client:
+    -c, --client server_ip                  Lists usb devices bound to the server
+    -a, --attatch server_ip device_id       Attatches usb device on server to client
+
+```
 
 -----------------------------------------------------------------------------------------------------------
 
