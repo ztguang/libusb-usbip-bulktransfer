@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <libusb-1.0/libusb.h>
+#include <stdlib.h>
 
 void printdev(libusb_device *dev) {
 	struct libusb_device_descriptor desc;
@@ -73,6 +74,7 @@ int main() {
 	libusb_free_device_list(devs, 1); //free the list, unref the devices in it
 
 	char data[] = {'a', 'b', 'c', 'd'}; // data to write
+	char *data2 = malloc(4);
 	int actual; //used to find out how many bytes were written
 
 	if(libusb_kernel_driver_active(dev_handle, 0) == 1) { //find out if kernel driver is attached
@@ -90,12 +92,13 @@ int main() {
 
 	printf("Writing Data...\n");
 	// device's out endpoint was 2, found with trial (using outputs from printdev)
-	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
+	//r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
+	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), data2, 4, &actual, 3000); 
 	if(r == 0 && actual == 4) {
 		printf("Writing Successful\n");
 	}
 	else {
-		printf("<!! Write Error !!>\n");
+		printf("<!! Write Error (%d) !!>\n", r);
 	}
 	printf("Bytes transferred = %d\n", actual);
 
