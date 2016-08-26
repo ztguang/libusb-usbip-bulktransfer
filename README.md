@@ -23,7 +23,6 @@ https://www.howtoforge.com/how-to-set-up-a-usb-over-ip-server-and-client-with-ub
 NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
 usbip is required; can be found in the package manager
 
------------------------------------------------------------------------------------------------------------
 ## Usage
 
 ```
