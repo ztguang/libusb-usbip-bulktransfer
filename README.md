@@ -23,7 +23,7 @@ Options:
 
   Server:
     -s, --server                            Lists usb devices on the server
-    -s, --server device_id                  Binds usb device
+    -s, --server device_id                  Binds usb device to server
     --netstat                               Displays Netstat info
     --u, --unbind                           Unbinds usb device
   
