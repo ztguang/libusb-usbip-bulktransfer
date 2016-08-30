@@ -1,6 +1,6 @@
 ## Links and Libraries
 
-libraries needed: libusb-1.0-0-dev
+libraries needed: libusb-1.0-0-dev, usbip
 
 NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
 usbip is required; can be found in the package manager
