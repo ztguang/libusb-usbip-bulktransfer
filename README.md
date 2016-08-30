@@ -36,4 +36,4 @@ Options:
 
 -----------------------------------------------------------------------------------------------------------
 
-(c) Sam & Shyan - Developed in Agile style
+(c) Sam & Shyan - Developed in  <a href="https://en.wikipedia.org/wiki/Agile_software_development">Agile style</a>
