@@ -1,13 +1,13 @@
-## Links
+## Links and Libraries
 
 libraries needed: libusb-1.0-0-dev
+
+NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
+usbip is required; can be found in the package manager
 
 http://www.dreamincode.net/forums/topic/148707-introduction-to-using-libusb-10/
 
 https://wiki.openwrt.org/doc/howto/usb.iptunnel (DON'T FORGET THE SUDO's!!!)
-
-NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
-usbip is required; can be found in the package manager
 
 ## Todo
 1. Fix detach (only reqires port)
