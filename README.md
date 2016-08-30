@@ -9,6 +9,10 @@ http://www.dreamincode.net/forums/topic/148707-introduction-to-using-libusb-10/
 
 https://wiki.openwrt.org/doc/howto/usb.iptunnel (DON'T FORGET THE SUDO's!!!)
 
+https://github.com/texane/stlink
+
+http://www.hertaville.com/stm32f0discovery-part-1-linux.html
+
 ## Todo
 1. Fix detach (only reqires port)
 2. Make fake usb
