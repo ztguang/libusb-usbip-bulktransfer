@@ -2,6 +2,10 @@
 #include <libusb-1.0/libusb.h>
 #include <stdlib.h>
 
+#define VID 0x8644 // vendor ID
+#define PID 0x8003 // product ID
+#define EP  2      // endpoint address
+
 void printdev(libusb_device *dev) {
 	struct libusb_device_descriptor desc;
 	int r = libusb_get_device_descriptor(dev, &desc);
@@ -41,6 +45,10 @@ void printdev(libusb_device *dev) {
 }
 
 int main() {
+  // =============================
+  // === SETTING UP USB DEVICE ===
+  // =============================
+
 	printf("Testing libusb synchronous bulk transfer...\n");
 
 	libusb_device **devs; 						// pointer to pointer of device, used to retrieve a list of devices
@@ -66,16 +74,12 @@ int main() {
  	for(ssize_t i = 0; i < cnt; i++) printdev(devs[i]);
 
 	// open specific device
-	dev_handle = libusb_open_device_with_vid_pid(ctx, 0x8644, 0x8003);
+	dev_handle = libusb_open_device_with_vid_pid(ctx, VID, PID);
 	if(dev_handle == NULL)
 		printf("<!! Cannot open device !!>\n");
 	else
 		printf("Device Opened\n");
 	libusb_free_device_list(devs, 1); //free the list, unref the devices in it
-
-	char data[] = {'a', 'b', 'c', 'd'}; // data to write
-	char *data2 = malloc(4);
-	int actual; //used to find out how many bytes were written
 
 	if(libusb_kernel_driver_active(dev_handle, 0) == 1) { //find out if kernel driver is attached
 		printf("Kernel Driver Active\n");
@@ -90,10 +94,18 @@ int main() {
 	}
 	printf("Claimed Interface\n");
 
+  // ==================================
+  // === SENDING RAW DATA TO DEVICE ===
+  // ==================================
+
+	char  data[] = {'a', 'b', 'c', 'd'}; // data to send
+	char *buffer = malloc(4);            // buffer to receive
+	int actual; //used to find out how many bytes were written
+
 	printf("Writing Data...\n");
 	// device's out endpoint was 2, found with trial (using outputs from printdev)
-	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
-	//r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), data2, 4, &actual, 3000); 
+	r = libusb_bulk_transfer(dev_handle, (EP | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
+	//r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), buffer, 4, &actual, 3000); 
 	if(r == 0 && actual == 4) {
 		printf("Writing Successful\n");
 	}
@@ -101,6 +113,10 @@ int main() {
 		printf("<!! Write Error (%d) !!>\n", r);
 	}
 	printf("Bytes transferred = %d\n", actual);
+
+  // =========================
+  // === RELEASE RESOURCES ===
+  // =========================
 
 	r = libusb_release_interface(dev_handle, 0); //release the claimed interface
 	if(r!=0) {
