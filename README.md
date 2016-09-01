@@ -32,7 +32,7 @@ Options:
 ```
 ## Libusb Usage
 
-In order to communicate with a usb device, you need to know its *vendorID* and *productID*. **test_libusb.c** outputs relevant information regarding all usb devices connected to your machine. To compile and execute **test_libusb.c**, run:
+In order to communicate with a usb device, you need to know its **vendorID** and **productID**. *test_libusb.c* outputs relevant information regarding all usb devices connected to your machine. To compile and execute *test_libusb.c*, run:
 
 ```
 make
@@ -44,9 +44,9 @@ Alternatively, to see all usb devices connected to a linux machine, run:
 lsusb
 ```
 
-Each usb devices has 1 or more endpoint addresses (specified by the **printdevs()** function in **test_libusb.c**). Picking the correct endpoint is done through trial and error, as far as we are aware... See below documentation on how to use the **libusb_bulk_transfer** function to send and receive raw data synchronously via usb. 
+Each usb devices has 1 or more endpoint addresses (specified by the *printdevs()* function in *test_libusb.c*). Picking the correct endpoint is done through trial and error, as far as we are aware... See below documentation on how to use the *libusb_bulk_transfer* function to send and receive raw data synchronously via usb. 
 
-NOTE: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
+**NOTE**: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
 usbip is required; can be found in the package manager
 
 ## References
