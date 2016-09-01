@@ -44,9 +44,9 @@ Alternatively, to see all usb devices connected to a linux machine, run:
 lsusb
 ```
 
-Each usb devices has 1 or more endpoint addresses (specified by the *printdevs()* function in *test_libusb.c*). Picking the correct endpoint is done through trial and error, as far as we are aware... See below documentation on how to use the *libusb_bulk_transfer* function to send and receive raw data synchronously via usb. 
+Each usb device has 1 or more endpoints (addresses specified by the *printdevs()* function in *test_libusb.c*). Picking the correct endpoint is done through trial and error, as far as we are aware... See below documentation on how to use the *libusb_bulk_transfer* function to send and receive raw data synchronously via usb. 
 
-**NOTE**: write error may occur if you have already written to the device. Try remove and re-inserting usb to fix.
+**NOTE**: write error may occur if you have already written to the device. Try removing and re-inserting usb to fix.
 usbip is required; can be found in the package manager
 
 ## References
