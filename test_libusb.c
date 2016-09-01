@@ -66,7 +66,7 @@ int main() {
 
   //get the list of devices
   ssize_t cnt = libusb_get_device_list(ctx, &devs); 
-  if(cnt < 0) {
+  if (cnt < 0) {
     printf("<!! Get Device Error !!>\n"); //there was an error
     return 1;
   }
@@ -75,20 +75,20 @@ int main() {
 
   // open specific device
   dev_handle = libusb_open_device_with_vid_pid(ctx, VID, PID);
-  if(dev_handle == NULL)
+  if (dev_handle == NULL)
     printf("<!! Cannot open device !!>\n");
   else
     printf("Device Opened\n");
   libusb_free_device_list(devs, 1); // free the list, unref the devices in it
 
-  if(libusb_kernel_driver_active(dev_handle, 0) == 1) { // find out if kernel driver is attached
+  if (libusb_kernel_driver_active(dev_handle, 0) == 1) { // find out if kernel driver is attached
     printf("Kernel Driver Active\n");
-    if(libusb_detach_kernel_driver(dev_handle, 0) == 0) { // detach it
+    if (libusb_detach_kernel_driver(dev_handle, 0) == 0) { // detach it
       printf("Kernel Driver Detached\n");
     }
   }
   r = libusb_claim_interface(dev_handle, 0); //claim interface 0 (the first) of device (mine had jsut 1)
-  if(r < 0) {
+  if (r < 0) {
     printf("<!! Cannot Claim Interface !!>\n");
     return 1;
   }
@@ -106,7 +106,7 @@ int main() {
   // device's out endpoint was 2, found with trial (using outputs from printdev)
   r = libusb_bulk_transfer(dev_handle, (EP | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
   //r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), buffer, 4, &actual, 3000); 
-  if(r == 0 && actual == 4) {
+  if (r == 0 && actual == 4) {
     printf("Writing Successful\n");
   }
   else {
@@ -119,7 +119,7 @@ int main() {
   // =========================
 
   r = libusb_release_interface(dev_handle, 0); //release the claimed interface
-  if(r!=0) {
+  if (r!=0) {
     printf("<!! Cannot Release Interface !!>\n");
     return 1;
   }
