@@ -1,6 +1,14 @@
-## Todo
-1. Fix detach (only reqires port)
-2. Make fake usb
+## Installation
+### Ubuntu
+```
+sudo apt-get install usbip
+sudo apt-get install libusb-1.0-0-dev
+```
+### Fedora
+```
+sudo dnf install usbip
+sudo dnf install libusb-devel
+```
 
 ## Usage
 
