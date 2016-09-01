@@ -92,8 +92,8 @@ int main() {
 
 	printf("Writing Data...\n");
 	// device's out endpoint was 2, found with trial (using outputs from printdev)
-	//r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
-	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), data2, 4, &actual, 3000); 
+	r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_OUT), data, 4, &actual, 0); 
+	//r = libusb_bulk_transfer(dev_handle, (2 | LIBUSB_ENDPOINT_IN), data2, 4, &actual, 3000); 
 	if(r == 0 && actual == 4) {
 		printf("Writing Successful\n");
 	}
