@@ -22,7 +22,6 @@ Options:
     -d, --detach server_ip device_id      Detaches usb device specified
 
 ```
-
 -----------------------------------------------------------------------------------------------------------
 
 ## Libraries and References
