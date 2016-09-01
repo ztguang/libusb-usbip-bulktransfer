@@ -13,6 +13,8 @@ https://github.com/texane/stlink
 
 http://www.hertaville.com/stm32f0discovery-part-1-linux.html
 
+https://my.st.com/public/STe2ecommunities/mcu/Lists/STM32F4DISCOVERY/Flat.aspx?RootFolder=%2Fpublic%2FSTe2ecommunities%2Fmcu%2FLists%2FSTM32F4DISCOVERY%2FHelp%20transfering%20data%20to%20PC&FolderCTID=0x01200200770978C69A1141439FE559EB459D7580002E3D0FFCC5A9AA4A9C29C3EECB7CCDBF&currentviews=2377#{3258930D-6DF8-407A-B305-CACF8301C78D
+
 ## Todo
 1. Fix detach (only reqires port)
 2. Make fake usb
